@@ -2,15 +2,6 @@ import numpy as np
 
 
 def initialize_weights(input_dim, output_dim, method="random_uniform", init_params=None):
-    """
-
-      input_dim (int): Jumlah neuron input.
-      output_dim (int): Jumlah neuron output.
-
-
-    Returns:S
-      Tuple (W, b): Bobot dan bias yang diinisialisasi.
-    """
     init_params = init_params if init_params is not None else {}
 
     if method == "zero":
@@ -32,6 +23,21 @@ def initialize_weights(input_dim, output_dim, method="random_uniform", init_para
             np.random.seed(seed)
         W = np.random.normal(mean, np.sqrt(var), (input_dim, output_dim))
         b = np.random.normal(mean, np.sqrt(var), (1, output_dim))
+    elif method == "xavier":
+        limit = np.sqrt(6.0 / (input_dim + output_dim))
+        seed = init_params.get('seed', None)
+        if seed is not None:
+            np.random.seed(seed)
+        W = np.random.uniform(-limit, limit, (input_dim, output_dim))
+        b = np.zeros((1, output_dim))
+    elif method == "he":
+        factor = np.sqrt(2.0 / input_dim)
+        seed = init_params.get('seed', None)
+        if seed is not None:
+            np.random.seed(seed)
+        W = np.random.randn(input_dim, output_dim) * factor
+        b = np.zeros((1, output_dim))
+
     else:
         raise ValueError("Unknown initialization method: {}".format(method))
 

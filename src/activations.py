@@ -48,6 +48,27 @@ class SoftmaxActivation(ActivationFunction):
         return exp_z / np.sum(exp_z, axis=1, keepdims=True)
 
     def backward(self, z):
-        # Untuk softmax, backward biasanya dipadukan dengan cross-entropy loss
         s = self.forward(z)
         return s * (1 - s)
+
+class LeakyReLUActivation(ActivationFunction):
+    def __init__(self, alpha=0.01):
+        self.alpha = alpha
+        
+    def forward(self, z):
+        return np.maximum(self.alpha * z, z)
+    
+    def backward(self, z):
+        dZ = np.ones_like(z)
+        dZ[z < 0] = self.alpha
+        return dZ
+
+class ELUActivation(ActivationFunction):
+    def __init__(self, alpha=1.0):
+        self.alpha = alpha
+        
+    def forward(self, z):
+        return np.where(z > 0, z, self.alpha * (np.exp(z) - 1))
+    
+    def backward(self, z):
+        return np.where(z > 0, 1, self.alpha * np.exp(z))
