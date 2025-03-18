@@ -5,7 +5,7 @@ from activations import ELUActivation, LeakyReLUActivation, LinearActivation, Re
 from losses import CategoricalCrossEntropy, MSELoss, BinaryCrossEntropy
 from initializers import initialize_weights
 from norm import RMSNorm
-from utils import visualize_network
+from utils import visualize_network, plot_gradients_distribution, plot_weights_distribution
 
 
 class Layer:
@@ -235,7 +235,7 @@ class FFNN:
         return history
 
     def summary(self):
-        print("FFNN Model Layer:")
+        print("FFNN Model Layers:")
         for idx, layer in enumerate(self.layers):
             print(
                 f"Layer {idx}: Input Dim = {layer.input_dim}, Output Dim = {layer.output_dim}, Activation = {type(layer.activation).__name__}")
@@ -243,3 +243,14 @@ class FFNN:
 
     def visualize(self):
         visualize_network(self)
+        
+    def plot_gradients_dist(self, layer_indices=None):
+        if not layer_indices:
+            layer_indices = [i for i in range(len(self.layers))]
+        plot_gradients_distribution(self, layer_indices)
+        
+    def plot_weights_dist(self, layer_indices=None):
+        if not layer_indices:
+            layer_indices = [i for i in range(len(self.layers))]
+        plot_weights_distribution(self, layer_indices)
+        
