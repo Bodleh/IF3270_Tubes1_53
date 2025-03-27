@@ -241,8 +241,8 @@ class FFNN:
                 f"Layer {idx}: Input Dim = {layer.input_dim}, Output Dim = {layer.output_dim}, Activation = {type(layer.activation).__name__}")
             print(f"  Bobot: {layer.W.shape}, Bias: {layer.b.shape}")
 
-    def visualize(self):
-        visualize_network(self)
+    def visualize(self, max_nodes_per_layer=None, limit_connections=False):
+        visualize_network(self, max_nodes_per_layer, limit_connections)
         
     def plot_gradients_dist(self, layer_indices=None):
         if not layer_indices:

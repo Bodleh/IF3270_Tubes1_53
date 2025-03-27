@@ -2,8 +2,79 @@ import matplotlib.pyplot as plt
 import pickle
 import numpy as np
 
-def visualize_network(model):
-    print("Visualize network using graph with weights and gradients info")
+from pyvis.network import Network
+
+def visualize_network(model, max_nodes_per_layer=None, limit_connections=False):
+    net = Network(height="1000px", width="100%", directed=True, notebook=False)
+    layer_nodes = []
+    layer_indices = []
+    total_layers = len(model.layers) + 1
+    layer_spacing = 300
+    start_x = -(total_layers-1) * layer_spacing / 2
+    input_dim = model.layers[0].input_dim
+    input_nodes = []
+    input_indices = []
+    if max_nodes_per_layer is not None and input_dim > max_nodes_per_layer:
+        selected_indices = np.linspace(0, input_dim-1, max_nodes_per_layer, dtype=int)
+    else:
+        selected_indices = np.arange(input_dim)
+    for i, idx in enumerate(selected_indices):
+        node_id = f"input_{i}"
+        input_nodes.append(node_id)
+        input_indices.append(idx)
+        y_pos = (i - len(selected_indices)/2) * 60
+        net.add_node(node_id, label=f"In {idx}", color="#97c2fc",
+                    x=start_x, y=y_pos, fixed=True)
+    layer_nodes.append(input_nodes)
+    layer_indices.append(input_indices)
+    for layer_idx, layer in enumerate(model.layers):
+        layer_name = "output" if layer_idx == len(model.layers) - 1 else f"hidden_{layer_idx+1}"
+        output_dim = layer.output_dim
+        curr_layer_nodes = []
+        curr_layer_indices = []
+        if max_nodes_per_layer is not None and output_dim > max_nodes_per_layer:
+            selected_indices = np.linspace(0, output_dim-1, max_nodes_per_layer, dtype=int)
+        else:
+            selected_indices = np.arange(output_dim)
+        color = "#ff9999" if layer_name == "output" else "#ffb347"
+        x_pos = start_x + (layer_idx + 1) * layer_spacing
+        for i, idx in enumerate(selected_indices):
+            node_id = f"{layer_name}_{i}"
+            curr_layer_nodes.append(node_id)
+            curr_layer_indices.append(idx)
+            label = f"Out {idx}" if layer_name == "output" else f"H{layer_idx+1}_{idx}"
+            y_pos = (i - len(selected_indices)/2) * 60
+            net.add_node(node_id, label=label, color=color,
+                        x=x_pos, y=y_pos, fixed=True)
+        layer_nodes.append(curr_layer_nodes)
+        layer_indices.append(curr_layer_indices)
+        prev_nodes = layer_nodes[layer_idx]
+        prev_indices = layer_indices[layer_idx]
+        max_connections = None
+        if limit_connections and max_nodes_per_layer and max_nodes_per_layer > 10:
+            max_connections = 5
+        for i, target_node_id in enumerate(curr_layer_nodes):
+            target_idx = curr_layer_indices[i]
+            if max_connections and len(prev_nodes) > max_connections:
+                weights = [abs(layer.W[prev_indices[j], target_idx]) for j in range(len(prev_nodes))]
+                source_indices = np.argsort(weights)[-max_connections:]
+            else:
+                source_indices = range(len(prev_nodes))
+            for j in source_indices:
+                source_node_id = prev_nodes[j]
+                source_idx = prev_indices[j]
+                weight = layer.W[source_idx, target_idx]
+                gradient = layer.dW[source_idx, target_idx]
+                edge_color = "blue" if weight >= 0 else "red"
+                width = min(max(abs(weight) * 3, 0.5), 10)
+                net.add_edge(source_node_id, target_node_id, 
+                            color=edge_color, 
+                            width=width, 
+                            title=f"Weight: {weight:.4f}\nGradient: {gradient:.4f}")
+    net.toggle_physics(False)
+    html_file = "ffnn_visualization.html"
+    net.save_graph(html_file)
+    print(f"Network visualization saved to {html_file}")
 
 def plot_weights_distribution(model, layers_indices: list[int]):
     n_layers = len(layers_indices)
