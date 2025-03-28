@@ -5,50 +5,50 @@ Feedforward Neural Network
 
 ## Table of Contents
 
-- [Program Description](#program-description)
-- [Setup Instructions](#setup-instructions)
-- [Team Contributions](#team-contributions)
+- [Deskripsi Program](#deskripsi-program)
+- [Cara Setup](#cara-setup)
+- [Kontribusi Tim](#kontribusi-tim)
 
-## Program Description
+## Deskripsi Program
 
-This program implements a Feedforward Neural Network (FFNN) from scratch using NumPy. It provides a flexible and customizable FFNN architecture for various machine learning tasks. The program includes functionalities for:
+Program ini mengimplementasikan **Feedforward Neural Network (FFNN)** dari scratch dengan menggunakan **NumPy**. Program ini menyediakan arsitektur FFNN yang dapat dikustomisasi untuk berbagai kebutuhan tugas pembelajaran mesin. Adapun fitur-fitur yang disertakan antara lain:
 
-- **Defining and Training Neural Networks:** Users can define the architecture of an FFNN, including the number of layers, number of neurons per layer, and activation functions. The network can then be trained using various optimization algorithms.
-- **Prediction and Evaluation:** Trained models can be used to make predictions on new data and evaluated using appropriate metrics.
-- **Visualization:** The program offers visualization tools to inspect the network's structure, weights, and performance.
+- **Menentukan Parameter dan Melatih Jaringan Neuron:** Pengguna dapat menentukan arsitektur FFNN seperti jumlah layer, jumlah neuron per layer, serta fungsi aktivasi. Jaringan tersebut kemudian dapat dilatih dengan berbagai algoritma optimasi.
+- **Prediksi dan Evaluasi:** Model yang telah dilatih dapat digunakan untuk memprediksi data baru serta dievaluasi menggunakan metrik yang sesuai.
+- **Visualisasi:** Program ini menyediakan alat untuk memvisualisasikan struktur jaringan, bobot, dan kinerja model.
 
-## Setup Instructions
+## Cara Setup
 
-1.  **Clone the Repository:**
+1.  **Lakukan Clone Repositori:**
 
     ```bash
     git clone https://github.com/Bodleh/IF3270_Tubes1_53
     ```
 
-3.  **Navigate to the Project Directory:**
+3.  **Pindah ke Direktori Project:**
 
     ```bash
     cd IF3270_Tubes1_53
     ```
 
-2.  **Install Dependencies:**
+2.  **Install Module:**
 
     ```bash
     pip install -r requirements.txt
     ```
 
-3.  **Navigate to the Source Directory:**
+3.  **Pindah ke Direktori src:**
 
     ```bash
     cd src
     ```
 
-4.  **Run the Program:** You can run the program by running the main.ipynb (jupyter notebook).
+4.  **Jalankan Program:** Sekarang anda bisa menjalankan program melalui main.ipynb (jupyter notebook)
 
-## Team Contributions
+## Kontribusi Tim
 
-| NIM      | Name                | Contributions                                             |
-| -------- | ------------------- | --------------------------------------------------------- |
-| 13522073 | Juan Alfred Widjaya | Wrote docs and implemented fix and optimization of model. |
-| 13522081 | Albert              | Wrote docs and implemented model structure.               |
-| 13522111 | Ivan Hendrawan Tan  | Wrote docs and implemented base functions.                |
+| NIM      | Name                | Contributions                                            |
+| -------- | ------------------- | -------------------------------------------------------- |
+| 13522073 | Juan Alfred Widjaya | Membuat laporan dan memperbaiki serta mengoptimasi model |
+| 13522081 | Albert              | Membuat laporan dan mengimplementasi struktur dari model |
+| 13522111 | Ivan Hendrawan Tan  | Membuat laporan dan mengimplementasi fungsi dasar        |
