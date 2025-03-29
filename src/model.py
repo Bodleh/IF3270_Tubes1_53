@@ -168,13 +168,11 @@ class FFNN:
         return self.l1_lambda * l1_reg + 0.5 * self.l2_lambda * l2_reg
 
     def train(self, X_train, y_train, X_val=None, y_val=None, epochs=10, batch_size=32, learning_rate=0.01, verbose=1):
-        
-        # Using tqdm for better training visualization (included in requirements.txt) 
         try:
             from tqdm.auto import tqdm
         except ImportError:
             tqdm = lambda x: x
-                    
+        
         history = {"train_loss": [], "val_loss": []}
         n_samples = X_train.shape[0]
         
@@ -213,7 +211,7 @@ class FFNN:
             val_loss_str = ""
             if X_val is not None and y_val is not None:
                 y_val_pred = self.forward(X_val)
-                val_loss = self.loss_func.loss(y_val, y_val_pred)
+                val_loss = self.loss_func.loss(y_val, y_val_pred) + self._calculate_reg_loss()
                 history["val_loss"].append(val_loss)
                 val_loss_str = f", val_loss: {val_loss:.4f}"
 
@@ -233,6 +231,7 @@ class FFNN:
             plt.show()
                 
         return history
+
 
     def summary(self):
         print("FFNN Model Layers:")
