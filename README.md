@@ -47,8 +47,8 @@ Program ini mengimplementasikan **Feedforward Neural Network (FFNN)** dari scrat
 
 ## Kontribusi Tim
 
-| NIM      | Name                | Contributions                                            |
-| -------- | ------------------- | -------------------------------------------------------- |
-| 13522073 | Juan Alfred Widjaya | Membuat laporan dan memperbaiki serta mengoptimasi model |
-| 13522081 | Albert              | Membuat laporan dan mengimplementasi struktur dari model |
-| 13522111 | Ivan Hendrawan Tan  | Membuat laporan dan mengimplementasi fungsi dasar        |
+| NIM      | Name                | Contributions                                                                 |
+| -------- | ------------------- | ----------------------------------------------------------------------------- |
+| 13522073 | Juan Alfred Widjaya | Membuat laporan dan memperbaiki serta mengoptimasi model                      |
+| 13522081 | Albert              | Membuat laporan dan mengimplementasi struktur dari model                      |
+| 13522111 | Ivan Hendrawan Tan  | Membuat laporan dan mengimplementasi fungsi dasar serta memperbaiki pengujian |
